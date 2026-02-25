@@ -7,20 +7,12 @@ interface Props {
 }
 
 export const NewMovie: React.FC<Props> = ({ onAdd }) => {
-  const [count] = useState(0);
+  const [count, setCount] = useState(0);
   const [movieName, setMovieName] = useState('');
   const [movieDescription, setmovieDescription] = useState('');
   const [movieImgUrl, setmovieImgUrl] = useState('');
   const [movieImbdUrl, setmovieImbdUrl] = useState('');
   const [movieImbdId, setmovieImbdId] = useState('');
-
-  const clearForm = () => {
-    setMovieName('');
-    setmovieDescription('');
-    setmovieImgUrl('');
-    setmovieImbdUrl('');
-    setmovieImbdId('');
-  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,15 +26,14 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
     };
 
     onAdd(newMovie);
-
-    clearForm();
+    setCount(prevCount => prevCount + 1);
   };
 
   const formIsValid =
-    movieName !== '' &&
-    movieImgUrl !== '' &&
-    movieImbdUrl !== '' &&
-    movieImbdId !== '';
+    movieName.trim() !== '' &&
+    movieImgUrl.trim() !== '' &&
+    movieImbdUrl.trim() !== '' &&
+    movieImbdId.trim() !== '';
 
   return (
     <form className="NewMovie" key={count} onSubmit={handleSubmit}>
